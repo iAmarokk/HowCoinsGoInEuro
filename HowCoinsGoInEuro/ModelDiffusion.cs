@@ -22,6 +22,9 @@ namespace EuroDiffusion
 
         }
 
+        /// <summary>
+        /// get a neighbor for all cities
+        /// </summary>
         private void GetNeighborsForCities()
         {
             for (int i = 0; i < Cities.GetLength(0); i++)
@@ -32,6 +35,10 @@ namespace EuroDiffusion
                 }
         }
 
+        /// <summary>
+        /// get a neighborhood for the city
+        /// </summary>
+        /// <param name="coord"></param>
         private void GetNeighborForCity(Coord coord)
         {
 
@@ -65,6 +72,9 @@ namespace EuroDiffusion
             }
         }
 
+        /// <summary>
+        /// build a map of cities
+        /// </summary>
         private void BuildCityMap()
         {
             foreach (var item in Countries)
@@ -79,7 +89,9 @@ namespace EuroDiffusion
                 }
             }
         }
-
+        /// <summary>
+        /// defining an array of cities
+        /// </summary>
         private void InitArrayOfCity()
         {
             int maxX = 0, maxY = 0;
@@ -114,24 +126,12 @@ namespace EuroDiffusion
                 {
                     foreach (var city in country.CitiesInCountry)
                     {
-                        TransferCoins(city);
-                    }
-                }
-                foreach (var country in Countries)
-                {
-                    foreach (var city in country.CitiesInCountry)
-                    {
-                        CloseOfDay(city);
+                        city.TrasferCoins();
+                        city.CloseOfDay();
+                        city.IsDone();
                     }
                 }
 
-                foreach (var country in Countries)
-                {
-                    foreach (var city in country.CitiesInCountry)
-                    {
-                        CheckCityIsDone(city);
-                    }
-                }
                 days++;
                 CheckIsReadyCountries(days);
 
@@ -152,6 +152,12 @@ namespace EuroDiffusion
             }
         }
 
+        /// <summary>
+        /// checking whether countries are connected
+        /// 1) checking whether the country has a neighbor
+        /// 2) counts the number of edges
+        /// 3) according to the formula, the minimum number of faces is n - 1
+        /// </summary>
         public void CheckForConnectionsCountries()
         {
             GetNeighborForCountry();
@@ -201,16 +207,6 @@ namespace EuroDiffusion
                    (j >= 0 && j < Cities.GetLength(1));
         }
 
-        public void TransferCoins(City city)
-        {
-            city.TrasferCoins();
-        }
-
-        private void CloseOfDay(City city)
-        {
-            city.CloseOfDay();
-        }
-
         private void CheckIsReadyCountries(int day)
         {
             for (int i = 0; i < Countries.Count(); i++)
@@ -225,9 +221,5 @@ namespace EuroDiffusion
             }
         }
 
-        private void CheckCityIsDone(City city)
-        {
-            city.IsDone();
-        }
     }
 }

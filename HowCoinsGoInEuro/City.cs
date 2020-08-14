@@ -35,7 +35,9 @@ namespace EuroDiffusion
         {
             return CityCoords.ToString();
         }
-
+        /// <summary>
+        /// check eat coins of all countries in the city
+        /// </summary>
         public void IsDone()
         {
             bool coinsOfAllCountriesInCity = CoinsCountry.All(x => x > 0);
@@ -44,7 +46,9 @@ namespace EuroDiffusion
                 Complete = true;
             }
         }
-        
+        /// <summary>
+        /// transfer coins nearby cities
+        /// </summary>
         public void TrasferCoins()
         {
             for(int i = 0; i < NeighborCities.Count(); i++)
@@ -56,7 +60,9 @@ namespace EuroDiffusion
                 }
             }
         }
-
+        /// <summary>
+        /// coin fixing on end of day
+        /// </summary>
         public void CloseOfDay()
         {
             for (int i = 0; i < CoinsCountry.Count(); i++)

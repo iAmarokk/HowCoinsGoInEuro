@@ -25,6 +25,9 @@ namespace EuroDiffusion
             isEndTask = false;
         }
 
+        /// <summary>
+        /// read a file and run solutions
+        /// </summary>
         public void ReadAllFile()
         {
             int n;
@@ -59,7 +62,7 @@ namespace EuroDiffusion
                 {
                     throw new ArgumentException("Wrong input format... Need number 1 <= countries <= 20");
                 }
-
+                ///run solutions
                 var Countries = Read(n);
                 i++;
                 ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
@@ -79,6 +82,11 @@ namespace EuroDiffusion
             return Countries;
         }
 
+        /// <summary>
+        /// read one string of Country
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         private Country ReadCountry(TextReader country)
         {
             int[] coordOfCountry = new int[expectedInputLength - 1];

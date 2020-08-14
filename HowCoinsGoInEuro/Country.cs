@@ -9,7 +9,7 @@ namespace EuroDiffusion
     class Country : IComparable<Country>
     {
         /// <summary>
-        /// France 1  4  4  6
+        /// Example - France 1  4  4  6
         /// France Xl Yl Xh Yh
         /// 6|* * * *
         /// 5|* * * *
@@ -54,7 +54,10 @@ namespace EuroDiffusion
         {
             return this.Name.CompareTo(other.Name);
         }
-
+        /// <summary>
+        /// check eat coins of all countries in all cities
+        /// </summary>
+        /// <returns></returns>
         public bool IsDone()
         {
             bool citiesReady = CitiesInCountry.All(x => x.Complete);
