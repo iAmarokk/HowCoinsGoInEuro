@@ -204,23 +204,12 @@ namespace EuroDiffusion
 
         public void TransferCoins(City city)
         {
-            foreach (var item in city.NeighborCities)
-            {
-                for(int i = 0; i < city.CoinsCountry.Count(); i++)
-                {
-                    Cities[item.CityCoords.X, item.CityCoords.Y].CoinsForDayTransfer[i] += city.CoinsCountry[i] / diffusionRate;
-                    city.CoinsForDayTransfer[i] -= city.CoinsCountry[i] / diffusionRate;
-                }
-            }
+            city.TrasferCoins();
         }
 
         private void CloseOfDay(City city)
         {
-            for (int i = 0; i < city.CoinsCountry.Count(); i++)
-            {
-                city.CoinsCountry[i] += city.CoinsForDayTransfer[i];
-                city.CoinsForDayTransfer[i] = 0;
-            }
+            city.CloseOfDay();
         }
 
         private void CheckIsReadyCountries(int day)

@@ -9,6 +9,7 @@ namespace EuroDiffusion
     class City
     {
         private const int defaultCoins = 1000000;
+        private const int diffusionRate = 1000;
         public List<int> CoinsCountry { get; set; }
         public List<int> CoinsForDayTransfer { get; set; }
         public int Country { get; set; }
@@ -41,6 +42,27 @@ namespace EuroDiffusion
             if (coinsOfAllCountriesInCity)
             {
                 Complete = true;
+            }
+        }
+        
+        public void TrasferCoins()
+        {
+            for(int i = 0; i < NeighborCities.Count(); i++)
+            {
+                for (int j = 0; j < CoinsCountry.Count(); j++)
+                {
+                    NeighborCities[i].CoinsForDayTransfer[j] += CoinsCountry[j] / diffusionRate;
+                    CoinsForDayTransfer[j] -= CoinsCountry[j] / diffusionRate;
+                }
+            }
+        }
+
+        public void CloseOfDay()
+        {
+            for (int i = 0; i < CoinsCountry.Count(); i++)
+            {
+                CoinsCountry[i] += CoinsForDayTransfer[i];
+                CoinsForDayTransfer[i] = 0;
             }
         }
     }
