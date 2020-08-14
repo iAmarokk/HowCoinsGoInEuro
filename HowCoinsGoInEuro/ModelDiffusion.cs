@@ -193,8 +193,8 @@ namespace EuroDiffusion
                     {
                         if (neighbor.Country != Countries.IndexOf(country))
                         {
-                            if(!country.NeighborCountry.Contains(Countries[neighbor.Country]))
-                            country.NeighborCountry.Add(Countries[neighbor.Country]);
+                            if (!country.NeighborCountry.Contains(Countries[neighbor.Country]))
+                                country.NeighborCountry.Add(Countries[neighbor.Country]);
                         }
                     }
                 }

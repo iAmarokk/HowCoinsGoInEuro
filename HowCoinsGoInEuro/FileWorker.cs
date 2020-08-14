@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EuroDiffusion
 {
@@ -66,10 +64,18 @@ namespace EuroDiffusion
                 var Countries = Read(n);
                 i++;
                 ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
-                Console.WriteLine("Solution {0}", i);
+                PrintNumberSolution(i);
                 ModelDiffusion.Solve();
             }
         }
+
+        private static void PrintNumberSolution(int i)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Solution {0}", i);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         public List<Country> Read(int n)
         {
             List<Country> Countries = new List<Country>();
