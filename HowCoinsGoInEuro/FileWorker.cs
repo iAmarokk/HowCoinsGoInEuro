@@ -51,6 +51,7 @@ namespace EuroDiffusion
                     Countries.Add(ReadCountry(inputData));
                 }
             }
+            Countries.Sort();
             return Countries;
         }
 

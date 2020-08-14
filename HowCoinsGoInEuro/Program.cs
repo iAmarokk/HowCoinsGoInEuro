@@ -20,7 +20,6 @@ namespace EuroDiffusion
             var Countries = fileWorker.Read();
             ///Read all Solutions
 
-
             ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
 
             ModelDiffusion.Solve();

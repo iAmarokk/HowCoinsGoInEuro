@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EuroDiffusion
 {
-    class Country
+    class Country : IComparable<Country>
     {
         /// <summary>
         /// x low point
@@ -25,17 +25,22 @@ namespace EuroDiffusion
         /// </summary>
         public int Yh { get; set; }
         public string Name { get; set; }
-        public HashSet<Country> NeighborCountry { get; set; }
+        public List<Country> NeighborCountry { get; set; }
         public List<City> CitiesInCountry { get; set; }
         public bool Complete { get; set; }
         public Country()
         {
             CitiesInCountry = new List<City>();
-            NeighborCountry = new HashSet<Country>();
+            NeighborCountry = new List<Country>();
         }
         public override string ToString()
         {
             return Name;
+        }
+
+        public int CompareTo(Country other)
+        {
+            return this.Name.CompareTo(other.Name);
         }
     }
 }
