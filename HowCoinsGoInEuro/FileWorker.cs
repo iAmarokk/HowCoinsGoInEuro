@@ -15,15 +15,21 @@ namespace EuroDiffusion
         const int minX = 1;
         const int maxX = 10;
         const int maxCountryNameString = 25;
+        const int numberCountries = 20;
+        const string like = "Correct like - France 1 4 4 6";
         StreamReader inputData;
         private bool isEndTask;
-        //public IList<Country> Countries { get; private set; }
+
         public FileWorker()
         {
             isEndTask = false;
         }
+
         public void ReadAllFile()
         {
+            int n;
+            string inputLine;
+            ///check file is exists
             try
             {
                 inputData = new StreamReader("Test.txt");
@@ -32,25 +38,43 @@ namespace EuroDiffusion
             {
                 throw new Exception("No file");
             }
-
-        }
-        public List<Country> Read()
-        {
-            int n;
-            string inputLine;
-            List<Country> Countries = new List<Country>();
-            inputLine = inputData.ReadLine();
-            if (!int.TryParse(inputLine, out n))
+            ///read file
+            int i = 0;
+            while (!isEndTask)
             {
-                throw new ArgumentException("Wrong input format");
-            }
-            else
-            {
-                for (int i = 0; i < n; i++)
+                inputLine = inputData.ReadLine();
+                if (!int.TryParse(inputLine, out n))
                 {
-                    Countries.Add(ReadCountry(inputData));
+                    throw new ArgumentException("Wrong input format... Need number countries");
                 }
+
+                if (n == 0)
+                {
+                    isEndTask = true;
+                    Console.WriteLine("Done");
+                    return;
+                }
+
+                if (n >= numberCountries || n < 1)
+                {
+                    throw new ArgumentException("Wrong input format... Need number 1 <= countries <= 20");
+                }
+
+                var Countries = Read(n);
+                i++;
+                ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
+                Console.WriteLine("Solution {0}", i);
+                ModelDiffusion.Solve();
             }
+        }
+        public List<Country> Read(int n)
+        {
+            List<Country> Countries = new List<Country>();
+            for (int i = 0; i < n; i++)
+            {
+                Countries.Add(ReadCountry(inputData));
+            }
+
             Countries.Sort();
             return Countries;
         }
@@ -66,14 +90,14 @@ namespace EuroDiffusion
 
             if (splitLine.Length != expectedInputLength)
             {
-                throw new ArgumentException("Wrong input format.");
+                throw new ArgumentException("Wrong input format..." + like);
             }
 
             for (int i = 0; i < coordOfCountry.Length; i++)
             {
                 if (!int.TryParse(splitLine[i + 1], out coordOfCountry[i]))
                 {
-                    throw new ArgumentException("Wrong input format");
+                    throw new ArgumentException("Wrong input format..." + like);
                 }
             }
 

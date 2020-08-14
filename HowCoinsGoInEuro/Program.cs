@@ -16,13 +16,6 @@ namespace EuroDiffusion
 
             Console.WriteLine("Read File Test.txt");
             fileWorker.ReadAllFile();
-            ///Read one Solution
-            var Countries = fileWorker.Read();
-            ///Read all Solutions
-
-            ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
-
-            ModelDiffusion.Solve();
 
             Console.ReadKey();
         }

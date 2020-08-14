@@ -54,5 +54,21 @@ namespace EuroDiffusion
         {
             return this.Name.CompareTo(other.Name);
         }
+
+        public bool IsDone()
+        {
+            bool citiesReady = CitiesInCountry.All(x => x.Complete);
+
+            if (citiesReady)
+            {
+                Complete = true;
+            }
+            else
+            {
+                Complete = false;
+            }
+
+            return Complete;
+        }
     }
 }

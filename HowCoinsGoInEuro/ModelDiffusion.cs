@@ -18,7 +18,6 @@ namespace EuroDiffusion
             InitArrayOfCity();
             BuildCityMap();
             GetNeighborsForCities();
-            Console.WriteLine("");
             CheckForConnectionsCountries();
 
         }
@@ -156,7 +155,7 @@ namespace EuroDiffusion
         public void CheckForConnectionsCountries()
         {
             GetNeighborForCountry();
-            bool isCheck = СountryHasAnyNeighbors();
+            bool isCheck = СountriesHasAnyNeighbors();
             var result = GetNumberConnections();
             var numberGraphEdges = (result / 2);
             if(!(numberGraphEdges >= (Countries.Count() - 1)) || !isCheck)
@@ -165,7 +164,7 @@ namespace EuroDiffusion
             }            
         }
 
-        private bool СountryHasAnyNeighbors()
+        private bool СountriesHasAnyNeighbors()
         {
             bool connect = Countries.All(c => c.NeighborCountry.Count() > 0);                        
             return connect;
@@ -216,12 +215,10 @@ namespace EuroDiffusion
         {
             for (int i = 0; i < Countries.Count(); i++)
             {
-                if (!Countries[i].Complete)
+                if(!Countries[i].Complete)
                 {
-                    bool citiesReady = Countries[i].CitiesInCountry.All(x => x.Complete);
-                    if (citiesReady)
+                    if(Countries[i].IsDone())
                     {
-                        Countries[i].Complete = true;
                         CountrySolution[i] = day;
                     }
                 }
