@@ -109,6 +109,9 @@ namespace EuroDiffusion
             Cities = new City[maxX + 1, maxY + 1];
         }
 
+        /// <summary>
+        /// solve solution and console output
+        /// </summary>
         public void Solve()
         {
             bool done = false;
