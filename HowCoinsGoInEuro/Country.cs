@@ -9,6 +9,18 @@ namespace EuroDiffusion
     class Country : IComparable<Country>
     {
         /// <summary>
+        /// France 1  4  4  6
+        /// France Xl Yl Xh Yh
+        /// 6|* * * *
+        /// 5|* * * *
+        /// 4|* * * *
+        /// 3|
+        /// 2| 
+        /// 1|
+        ///   1 2 3 4 5 6 
+        /// </summary>
+
+        /// <summary>
         /// x low point
         /// </summary>
         public int Xl { get; set; }

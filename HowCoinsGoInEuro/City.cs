@@ -35,5 +35,13 @@ namespace EuroDiffusion
             return CityCoords.ToString();
         }
 
+        public void IsDone()
+        {
+            bool coinsOfAllCountriesInCity = CoinsCountry.All(x => x > 0);
+            if (coinsOfAllCountriesInCity)
+            {
+                Complete = true;
+            }
+        }
     }
 }

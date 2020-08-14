@@ -20,7 +20,7 @@ namespace EuroDiffusion
             GetNeighborsForCities();
             Console.WriteLine("");
             CheckForConnectionsCountries();
-            //CountrySolution = new Dictionary<string, int>();
+
         }
 
         private void GetNeighborsForCities()
@@ -241,18 +241,7 @@ namespace EuroDiffusion
 
         private void CheckCityIsDone(City city)
         {
-            int numberCoinsOfCountry = 0;
-            foreach(var value in city.CoinsCountry)
-            {
-                if(value != 0)
-                {
-                    numberCoinsOfCountry++;
-                }
-            }
-            if(numberCoinsOfCountry == Countries.Count())
-            {
-                city.Complete = true;
-            }
+            city.IsDone();
         }
     }
 }
