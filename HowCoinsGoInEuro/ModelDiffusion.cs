@@ -131,6 +131,13 @@ namespace EuroDiffusion
                     foreach (var city in country.CitiesInCountry)
                     {
                         city.TrasferCoins();
+                    }
+                }
+
+                foreach (var country in Countries)
+                {
+                    foreach (var city in country.CitiesInCountry)
+                    {
                         city.CloseOfDay();
                         city.IsDone();
                     }
