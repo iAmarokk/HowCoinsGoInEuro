@@ -46,7 +46,7 @@ namespace EuroDiffusion
                 inputLine = inputData.ReadLine();
                 if (!int.TryParse(inputLine, out n))
                 {
-                    throw new ArgumentException("Wrong input format... Need number countries");
+                    throw new Exception("Wrong input format... Need number countries");
                 }
 
                 if (n == 0)
@@ -58,7 +58,7 @@ namespace EuroDiffusion
 
                 if (n >= numberCountries || n < 1)
                 {
-                    throw new ArgumentException("Wrong input format... Need number 1 <= countries <= 20");
+                    throw new Exception("Wrong input format... Need number 1 <= countries <= 20");
                 }
                 ///run solutions
                 var Countries = Read(n);
@@ -104,14 +104,14 @@ namespace EuroDiffusion
 
             if (splitLine.Length != expectedInputLength)
             {
-                throw new ArgumentException("Wrong input format..." + like);
+                throw new Exception("Wrong input format..." + like);
             }
 
             for (int i = 0; i < coordOfCountry.Length; i++)
             {
                 if (!int.TryParse(splitLine[i + 1], out coordOfCountry[i]))
                 {
-                    throw new ArgumentException("Wrong input format..." + like);
+                    throw new Exception("Wrong input format..." + like);
                 }
             }
 
@@ -123,15 +123,15 @@ namespace EuroDiffusion
 
             if (ResultCountry.Xl > maxX || ResultCountry.Xl < minX || ResultCountry.Xl > ResultCountry.Xh)
             {
-                throw new ArgumentException(string.Format("Wrong format in country {0}. {1}<=xl<=xh<={2}", ResultCountry.Name, minX, maxX));
+                throw new Exception(string.Format("Wrong format in country {0}. {1}<=xl<=xh<={2}", ResultCountry.Name, minX, maxX));
             }
             if (ResultCountry.Yl > maxY || ResultCountry.Yl < minY || ResultCountry.Yl > ResultCountry.Yh)
             {
-                throw new ArgumentException(string.Format("Wrong format in country {0}. {1}<=yl<=yh<={2}", ResultCountry.Name, minY, maxY));
+                throw new Exception(string.Format("Wrong format in country {0}. {1}<=yl<=yh<={2}", ResultCountry.Name, minY, maxY));
             }
             if (ResultCountry.Name.Count() > maxCountryNameString)
             {
-                throw new ArgumentException(string.Format("Too long name of country {0} ", ResultCountry.Name));
+                throw new Exception(string.Format("Too long name of country {0} ", ResultCountry.Name));
             }
 
             return ResultCountry;

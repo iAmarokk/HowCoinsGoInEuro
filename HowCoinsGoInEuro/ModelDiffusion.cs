@@ -162,7 +162,8 @@ namespace EuroDiffusion
             {
                 solution.Add(new Solution(Countries[i].Name, CountrySolution[i]));
             }
-            var result = solution.OrderBy(n => n.Days).OrderBy(n => n.Days).ToList();
+
+            var result = solution.OrderBy(n => n.Days).ToList();
 
             for (int i = 0; i < result.Count(); i++)
             {
