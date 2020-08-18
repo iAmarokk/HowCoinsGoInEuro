@@ -40,10 +40,13 @@ namespace EuroDiffusion
         /// </summary>
         public void IsDone()
         {
-            bool coinsOfAllCountriesInCity = CoinsCountry.All(x => x > 0);
-            if (coinsOfAllCountriesInCity)
+            if (!Complete)
             {
-                Complete = true;
+                bool coinsOfAllCountriesInCity = CoinsCountry.All(x => x > 0);
+                if (coinsOfAllCountriesInCity)
+                {
+                    Complete = true;
+                }
             }
         }
         /// <summary>

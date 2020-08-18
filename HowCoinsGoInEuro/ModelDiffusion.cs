@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HowCoinsGoInEuro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -149,9 +150,16 @@ namespace EuroDiffusion
 
         private void PrintSolution()
         {
-            for(int i = 0; i < Countries.Count(); i++)
+            List<Solution> solution = new List<Solution>();
+            for (int i = 0; i < Countries.Count(); i++)
             {
-                Console.WriteLine("Country {0} Days {1}", Countries[i], CountrySolution[i]);
+                solution.Add(new Solution(Countries[i].Name, CountrySolution[i]));
+            }
+            var result = solution.OrderBy(n => n.Days).OrderBy(n => n.Days).ToList();
+
+            for (int i = 0; i < result.Count(); i++)
+            {
+                Console.WriteLine("Country {0} Days {1}", result[i].Country, result[i].Days);
             }
         }
 

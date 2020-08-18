@@ -60,15 +60,14 @@ namespace EuroDiffusion
         /// <returns></returns>
         public bool IsDone()
         {
-            bool citiesReady = CitiesInCountry.All(x => x.Complete);
+            if(!Complete)
+            {
+                bool citiesReady = CitiesInCountry.All(x => x.Complete);
 
-            if (citiesReady)
-            {
-                Complete = true;
-            }
-            else
-            {
-                Complete = false;
+                if (citiesReady)
+                {
+                    Complete = true;
+                }
             }
 
             return Complete;

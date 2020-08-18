@@ -72,7 +72,7 @@ namespace EuroDiffusion
         private static void PrintNumberSolution(int i)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Solution {0}", i);
+            Console.WriteLine("Case Number {0}", i);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
