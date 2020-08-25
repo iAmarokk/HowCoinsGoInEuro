@@ -42,12 +42,12 @@ namespace EuroDiffusion
         public bool Complete { get; set; }
         public Country()
         {
-            CitiesInCountry = new List<City>();
-            NeighborCountry = new List<Country>();
+			this.CitiesInCountry = new List<City>();
+			this.NeighborCountry = new List<Country>();
         }
         public override string ToString()
         {
-            return Name;
+            return this.Name;
         }
 
         public int CompareTo(Country other)
@@ -60,17 +60,17 @@ namespace EuroDiffusion
         /// <returns></returns>
         public bool IsDone()
         {
-            if(!Complete)
+            if(!this.Complete)
             {
-                bool citiesReady = CitiesInCountry.All(x => x.Complete);
+                bool citiesReady = this.CitiesInCountry.All(x => x.Complete);
 
                 if (citiesReady)
                 {
-                    Complete = true;
+					this.Complete = true;
                 }
             }
 
-            return Complete;
+            return this.Complete;
         }
 
     }

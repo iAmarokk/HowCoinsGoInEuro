@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EuroDiffusion
+﻿namespace EuroDiffusion
 {
-    class Coord
+	class Coord
     {
 
         public Coord(int x, int y)
         {
-            X = x;
-            Y = y;
+			this.X = x;
+			this.Y = y;
         }
 
         public int X { get; set; }
@@ -20,7 +14,7 @@ namespace EuroDiffusion
 
         public override string ToString()
         {
-            return X.ToString() + Y.ToString();
+            return this.X.ToString() + this.Y.ToString();
         }
     }
 }

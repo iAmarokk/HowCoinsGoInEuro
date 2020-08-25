@@ -18,34 +18,34 @@ namespace EuroDiffusion
         public bool Complete { get; set; }
         public City(Country country, List<Country> countries, Coord coord)
         {
-            NeighborCities = new List<City>();
-            CoinsCountry = new List<int>();
-            CoinsForDayTransfer = new List<int>();
-            Country = countries.IndexOf(country);
+			this.NeighborCities = new List<City>();
+			this.CoinsCountry = new List<int>();
+			this.CoinsForDayTransfer = new List<int>();
+			this.Country = countries.IndexOf(country);
             foreach (var item in countries)
             {
-                CoinsCountry.Add(0);
-                CoinsForDayTransfer.Add(0);
+				this.CoinsCountry.Add(0);
+				this.CoinsForDayTransfer.Add(0);
             }
-            CityCoords = coord;
-            CoinsCountry[Country] = defaultCoins;
+			this.CityCoords = coord;
+			this.CoinsCountry[this.Country] = defaultCoins;
         }
 
         public override string ToString()
         {
-            return CityCoords.ToString();
+            return this.CityCoords.ToString();
         }
         /// <summary>
         /// check eat coins of all countries in the city
         /// </summary>
         public void IsDone()
         {
-            if (!Complete)
+            if (!this.Complete)
             {
-                bool coinsOfAllCountriesInCity = CoinsCountry.All(x => x > 0);
+                bool coinsOfAllCountriesInCity = this.CoinsCountry.All(x => x > 0);
                 if (coinsOfAllCountriesInCity)
                 {
-                    Complete = true;
+					this.Complete = true;
                 }
             }
         }
@@ -54,12 +54,12 @@ namespace EuroDiffusion
         /// </summary>
         public void TrasferCoins()
         {
-            for(int i = 0; i < NeighborCities.Count(); i++)
+            for(int i = 0; i < this.NeighborCities.Count(); i++)
             {
-                for (int j = 0; j < CoinsCountry.Count(); j++)
+                for (int j = 0; j < this.CoinsCountry.Count(); j++)
                 {
-                    NeighborCities[i].CoinsForDayTransfer[j] += CoinsCountry[j] / diffusionRate;
-                    CoinsForDayTransfer[j] -= CoinsCountry[j] / diffusionRate;
+					this.NeighborCities[i].CoinsForDayTransfer[j] += this.CoinsCountry[j] / diffusionRate;
+					this.CoinsForDayTransfer[j] -= this.CoinsCountry[j] / diffusionRate;
                 }
             }
         }
@@ -68,10 +68,10 @@ namespace EuroDiffusion
         /// </summary>
         public void CloseOfDay()
         {
-            for (int i = 0; i < CoinsCountry.Count(); i++)
+            for (int i = 0; i < this.CoinsCountry.Count(); i++)
             {
-                CoinsCountry[i] += CoinsForDayTransfer[i];
-                CoinsForDayTransfer[i] = 0;
+				this.CoinsCountry[i] += this.CoinsForDayTransfer[i];
+				this.CoinsForDayTransfer[i] = 0;
             }
         }
     }

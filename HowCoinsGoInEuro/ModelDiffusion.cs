@@ -10,16 +10,16 @@ namespace EuroDiffusion
         private const int diffusionRate = 1000;
         List<Country> Countries { get; set; }
         private City[,] Cities;
-        List<int> CountrySolution = new List<int>();
+		private List<int> CountrySolution = new List<int>();
 
         public ModelDiffusion(List<Country> countries)
         {
-            Countries = new List<Country>();
-            Countries = countries;
-            InitArrayOfCity();
-            BuildCityMap();
-            GetNeighborsForCities();
-            CheckForConnectionsCountries();
+			this.Countries = new List<Country>();
+			this.Countries = countries;
+			this.InitArrayOfCity();
+			this.BuildCityMap();
+			this.GetNeighborsForCities();
+			this.CheckForConnectionsCountries();
 
         }
 
@@ -28,13 +28,13 @@ namespace EuroDiffusion
         /// </summary>
         private void GetNeighborsForCities()
         {
-            for (int i = 0; i < Cities.GetLength(0); i++)
+            for (int i = 0; i < this.Cities.GetLength(0); i++)
             {
-                for (int j = 0; j < Cities.GetLength(1); j++)
+                for (int j = 0; j < this.Cities.GetLength(1); j++)
                 {
-                    if (OnMap(i, j) && Cities[i, j] != null)
+                    if (this.OnMap(i, j) && this.Cities[i, j] != null)
                     {
-                        GetNeighborForCity(new Coord(i, j));
+						this.GetNeighborForCity(new Coord(i, j));
                     }                        
                 }
             }
@@ -47,32 +47,32 @@ namespace EuroDiffusion
         private void GetNeighborForCity(Coord coord)
         {
 
-            if (OnMap(coord.X + 1, coord.Y))
+            if (this.OnMap(coord.X + 1, coord.Y))
             {
-                if (Cities[coord.X + 1, coord.Y] != null)
+                if (this.Cities[coord.X + 1, coord.Y] != null)
                 {
-                    Cities[coord.X, coord.Y].NeighborCities.Add(Cities[coord.X + 1, coord.Y]);
+					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X + 1, coord.Y]);
                 }
             }
-            if (OnMap(coord.X - 1, coord.Y))
+            if (this.OnMap(coord.X - 1, coord.Y))
             {
-                if (Cities[coord.X - 1, coord.Y] != null)
+                if (this.Cities[coord.X - 1, coord.Y] != null)
                 {
-                    Cities[coord.X, coord.Y].NeighborCities.Add(Cities[coord.X - 1, coord.Y]);
+					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X - 1, coord.Y]);
                 }
             }
-            if (OnMap(coord.X, coord.Y + 1))
+            if (this.OnMap(coord.X, coord.Y + 1))
             {
-                if (Cities[coord.X, coord.Y + 1] != null)
+                if (this.Cities[coord.X, coord.Y + 1] != null)
                 {
-                    Cities[coord.X, coord.Y].NeighborCities.Add(Cities[coord.X, coord.Y + 1]);
+					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X, coord.Y + 1]);
                 }
             }
-            if (OnMap(coord.X, coord.Y - 1))
+            if (this.OnMap(coord.X, coord.Y - 1))
             {
-                if (Cities[coord.X, coord.Y - 1] != null)
+                if (this.Cities[coord.X, coord.Y - 1] != null)
                 {
-                    Cities[coord.X, coord.Y].NeighborCities.Add(Cities[coord.X, coord.Y - 1]);
+					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X, coord.Y - 1]);
                 }
             }
         }
@@ -82,14 +82,14 @@ namespace EuroDiffusion
         /// </summary>
         private void BuildCityMap()
         {
-            foreach (Country item in Countries)
+            foreach (Country item in this.Countries)
             {
                 for (int i = item.Xl; i <= item.Xh; i++)
                 {
                     for (int j = item.Yl; j <= item.Yh; j++)
                     {
-                        Cities[i, j] = (new City(item, Countries, new Coord(i, j)));
-                        item.CitiesInCountry.Add(Cities[i, j]);
+						this.Cities[i, j] = (new City(item, this.Countries, new Coord(i, j)));
+                        item.CitiesInCountry.Add(this.Cities[i, j]);
                     }
                 }
             }
@@ -100,7 +100,7 @@ namespace EuroDiffusion
         private void InitArrayOfCity()
         {
             int maxX = 0, maxY = 0;
-            foreach (Country item in Countries)
+            foreach (Country item in this.Countries)
             {
                 if (item.Xh > maxX)
                 {
@@ -111,7 +111,7 @@ namespace EuroDiffusion
                     maxY = item.Yh;
                 }
             }
-            Cities = new City[maxX + 1, maxY + 1];
+			this.Cities = new City[maxX + 1, maxY + 1];
         }
 
         /// <summary>
@@ -122,15 +122,15 @@ namespace EuroDiffusion
             bool done = false;
             int days = 0;
 
-            foreach (Country item in Countries)
+            foreach (Country item in this.Countries)
             {
-                CountrySolution.Add(0);
+				this.CountrySolution.Add(0);
             }
 
             while (!done)
             {
 
-                foreach (Country country in Countries)
+                foreach (Country country in this.Countries)
                 {
                     foreach (City city in country.CitiesInCountry)
                     {
@@ -138,7 +138,7 @@ namespace EuroDiffusion
                     }
                 }
 
-                foreach (Country country in Countries)
+                foreach (Country country in this.Countries)
                 {
                     foreach (City city in country.CitiesInCountry)
                     {
@@ -148,23 +148,23 @@ namespace EuroDiffusion
                 }
 
                 days++;
-                CheckIsReadyCountries(days);
+				this.CheckIsReadyCountries(days);
 
-                if (CountrySolution.All(x => x > 0))
+                if (this.CountrySolution.All(x => x > 0))
                 {
                     done = true;
                 }
             }
 
-            PrintSolution();
+			this.PrintSolution();
         }
 
         private void PrintSolution()
         {
             List<Solution> solution = new List<Solution>();
-            for (int i = 0; i < Countries.Count(); i++)
+            for (int i = 0; i < this.Countries.Count(); i++)
             {
-                solution.Add(new Solution(Countries[i].Name, CountrySolution[i]));
+                solution.Add(new Solution(this.Countries[i].Name, this.CountrySolution[i]));
             }
 
             List<Solution> result = solution.OrderBy(n => n.Days).ToList();
@@ -183,11 +183,11 @@ namespace EuroDiffusion
         /// </summary>
         public void CheckForConnectionsCountries()
         {
-            GetNeighborForCountry();
-            bool isCheck = СountriesHasAnyNeighbors();
-            int result = GetNumberConnections();
+			this.GetNeighborForCountry();
+            bool isCheck = this.СountriesHasAnyNeighbors();
+            int result = this.GetNumberConnections();
             int numberGraphEdges = (result / 2);
-            if(!(numberGraphEdges >= (Countries.Count() - 1)) || !isCheck)
+            if(!(numberGraphEdges >= (this.Countries.Count() - 1)) || !isCheck)
             {
                 throw new ArgumentException("Countries not connect");
             }            
@@ -195,30 +195,30 @@ namespace EuroDiffusion
 
         private bool СountriesHasAnyNeighbors()
         {
-            bool connect = Countries.All(c => c.NeighborCountry.Count() > 0);                        
+            bool connect = this.Countries.All(c => c.NeighborCountry.Count() > 0);                        
             return connect;
         }
 
         private int GetNumberConnections()
         {
-            int numberConnections = Countries.Sum(c => c.NeighborCountry.Count());
+            int numberConnections = this.Countries.Sum(c => c.NeighborCountry.Count());
             
             return numberConnections;
         }
 
         private void GetNeighborForCountry()
         {
-            foreach (Country country in Countries)
+            foreach (Country country in this.Countries)
             {
                 foreach (City city in country.CitiesInCountry)
                 {
                     foreach (City neighbor in city.NeighborCities)
                     {
-                        if (neighbor.Country != Countries.IndexOf(country))
+                        if (neighbor.Country != this.Countries.IndexOf(country))
                         {
-                            if (!country.NeighborCountry.Contains(Countries[neighbor.Country]))
+                            if (!country.NeighborCountry.Contains(this.Countries[neighbor.Country]))
                             {
-                                country.NeighborCountry.Add(Countries[neighbor.Country]);
+                                country.NeighborCountry.Add(this.Countries[neighbor.Country]);
                             }
                                 
                         }
@@ -229,19 +229,19 @@ namespace EuroDiffusion
 
         private bool OnMap(int i, int j)
         {
-            return (i >= 0 && i < Cities.GetLength(0)) &&
-                   (j >= 0 && j < Cities.GetLength(1));
+            return (i >= 0 && i < this.Cities.GetLength(0)) &&
+                   (j >= 0 && j < this.Cities.GetLength(1));
         }
 
         private void CheckIsReadyCountries(int day)
         {
-            for (int i = 0; i < Countries.Count(); i++)
+            for (int i = 0; i < this.Countries.Count(); i++)
             {
-                if(!Countries[i].Complete)
+                if(!this.Countries[i].Complete)
                 {
-                    if(Countries[i].IsDone())
+                    if(this.Countries[i].IsDone())
                     {
-                        CountrySolution[i] = day;
+						this.CountrySolution[i] = day;
                     }
                 }
             }

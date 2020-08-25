@@ -20,7 +20,7 @@ namespace EuroDiffusion
 
         public FileWorker()
         {
-            isEndTask = false;
+			this.isEndTask = false;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace EuroDiffusion
             ///check file is exists
             try
             {
-                inputData = new StreamReader("Test.txt");
+				this.inputData = new StreamReader("Test.txt");
             }
             catch
             {
@@ -41,9 +41,9 @@ namespace EuroDiffusion
             }
             ///read file
             int i = 0;
-            while (!isEndTask)
+            while (!this.isEndTask)
             {
-                inputLine = inputData.ReadLine();
+                inputLine = this.inputData.ReadLine();
                 if (!int.TryParse(inputLine, out n))
                 {
                     throw new Exception("Wrong input format... Need number countries");
@@ -51,7 +51,7 @@ namespace EuroDiffusion
 
                 if (n == 0)
                 {
-                    isEndTask = true;
+					this.isEndTask = true;
                     Console.WriteLine("Done");
                     return;
                 }
@@ -61,7 +61,7 @@ namespace EuroDiffusion
                     throw new Exception("Wrong input format... Need number 1 <= countries <= 20");
                 }
                 ///run solutions
-                var Countries = Read(n);
+                var Countries = this.Read(n);
                 i++;
                 ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
                 PrintNumberSolution(i);
@@ -81,7 +81,7 @@ namespace EuroDiffusion
             List<Country> Countries = new List<Country>();
             for (int i = 0; i < n; i++)
             {
-                Countries.Add(ReadCountry(inputData));
+                Countries.Add(this.ReadCountry(this.inputData));
             }
 
             Countries.Sort();

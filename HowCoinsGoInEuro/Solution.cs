@@ -7,8 +7,8 @@ namespace HowCoinsGoInEuro
 
         public Solution(string country, int days)
         {
-            Country = country;
-            Days = days;
+			this.Country = country;
+			this.Days = days;
         }
 
         public int Days { get; set; }
@@ -17,7 +17,7 @@ namespace HowCoinsGoInEuro
 
         public int CompareTo(Solution other)
         {
-            return Days.CompareTo(other.Days); 
+            return this.Days.CompareTo(other.Days); 
         }
     }
 }
