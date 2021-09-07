@@ -22,7 +22,7 @@ namespace EuroDiffusion
 			this.CoinsCountry = new List<int>();
 			this.CoinsForDayTransfer = new List<int>();
 			this.Country = countries.IndexOf(country);
-            foreach (var item in countries)
+            foreach (Country item in countries)
             {
 				this.CoinsCountry.Add(0);
 				this.CoinsForDayTransfer.Add(0);
@@ -36,7 +36,7 @@ namespace EuroDiffusion
             return this.CityCoords.ToString();
         }
         /// <summary>
-        /// check eat coins of all countries in the city
+        /// Check eat coins of all countries in the city.
         /// </summary>
         public void IsDone()
         {
@@ -50,7 +50,7 @@ namespace EuroDiffusion
             }
         }
         /// <summary>
-        /// transfer coins nearby cities
+        /// Transfer coins nearby cities.
         /// </summary>
         public void TrasferCoins()
         {
@@ -64,7 +64,7 @@ namespace EuroDiffusion
             }
         }
         /// <summary>
-        /// coin fixing on end of day
+        /// Coin fixing on end of day.
         /// </summary>
         public void CloseOfDay()
         {

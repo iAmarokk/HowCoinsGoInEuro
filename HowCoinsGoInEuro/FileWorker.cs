@@ -15,7 +15,7 @@ namespace EuroDiffusion
         const int maxCountryNameString = 25;
         const int numberCountries = 20;
         const string like = "Correct like - France 1 4 4 6";
-        StreamReader inputData;
+        private StreamReader inputData;
         private bool isEndTask;
 
         public FileWorker()
@@ -60,8 +60,8 @@ namespace EuroDiffusion
                 {
                     throw new Exception("Wrong input format... Need number 1 <= countries <= 20");
                 }
-                ///run solutions
-                var Countries = this.Read(n);
+				///run solutions
+				List<Country> Countries = this.Read(n);
                 i++;
                 ModelDiffusion ModelDiffusion = new ModelDiffusion(Countries);
                 PrintNumberSolution(i);
@@ -100,7 +100,7 @@ namespace EuroDiffusion
 
             string line = country.ReadLine();
 
-            var splitLine = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			string[] splitLine = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (splitLine.Length != expectedInputLength)
             {

@@ -1,16 +1,16 @@
-﻿using HowCoinsGoInEuro;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HowCoinsGoInEuro;
 
 namespace EuroDiffusion
 {
-    class ModelDiffusion
+	class ModelDiffusion
     {
         private const int diffusionRate = 1000;
         List<Country> Countries { get; set; }
-        private City[,] Cities;
-		private List<int> CountrySolution = new List<int>();
+        private City[,] cities;
+		private List<int> countrySolution = new List<int>();
 
         public ModelDiffusion(List<Country> countries)
         {
@@ -28,11 +28,11 @@ namespace EuroDiffusion
         /// </summary>
         private void GetNeighborsForCities()
         {
-            for (int i = 0; i < this.Cities.GetLength(0); i++)
+            for (int i = 0; i < this.cities.GetLength(0); i++)
             {
-                for (int j = 0; j < this.Cities.GetLength(1); j++)
+                for (int j = 0; j < this.cities.GetLength(1); j++)
                 {
-                    if (this.OnMap(i, j) && this.Cities[i, j] != null)
+                    if (this.OnMap(i, j) && this.cities[i, j] != null)
                     {
 						this.GetNeighborForCity(new Coord(i, j));
                     }                        
@@ -49,30 +49,30 @@ namespace EuroDiffusion
 
             if (this.OnMap(coord.X + 1, coord.Y))
             {
-                if (this.Cities[coord.X + 1, coord.Y] != null)
+                if (this.cities[coord.X + 1, coord.Y] != null)
                 {
-					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X + 1, coord.Y]);
+					this.cities[coord.X, coord.Y].NeighborCities.Add(this.cities[coord.X + 1, coord.Y]);
                 }
             }
             if (this.OnMap(coord.X - 1, coord.Y))
             {
-                if (this.Cities[coord.X - 1, coord.Y] != null)
+                if (this.cities[coord.X - 1, coord.Y] != null)
                 {
-					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X - 1, coord.Y]);
+					this.cities[coord.X, coord.Y].NeighborCities.Add(this.cities[coord.X - 1, coord.Y]);
                 }
             }
             if (this.OnMap(coord.X, coord.Y + 1))
             {
-                if (this.Cities[coord.X, coord.Y + 1] != null)
+                if (this.cities[coord.X, coord.Y + 1] != null)
                 {
-					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X, coord.Y + 1]);
+					this.cities[coord.X, coord.Y].NeighborCities.Add(this.cities[coord.X, coord.Y + 1]);
                 }
             }
             if (this.OnMap(coord.X, coord.Y - 1))
             {
-                if (this.Cities[coord.X, coord.Y - 1] != null)
+                if (this.cities[coord.X, coord.Y - 1] != null)
                 {
-					this.Cities[coord.X, coord.Y].NeighborCities.Add(this.Cities[coord.X, coord.Y - 1]);
+					this.cities[coord.X, coord.Y].NeighborCities.Add(this.cities[coord.X, coord.Y - 1]);
                 }
             }
         }
@@ -88,8 +88,8 @@ namespace EuroDiffusion
                 {
                     for (int j = item.Yl; j <= item.Yh; j++)
                     {
-						this.Cities[i, j] = (new City(item, this.Countries, new Coord(i, j)));
-                        item.CitiesInCountry.Add(this.Cities[i, j]);
+						this.cities[i, j] = (new City(item, this.Countries, new Coord(i, j)));
+                        item.CitiesInCountry.Add(this.cities[i, j]);
                     }
                 }
             }
@@ -111,7 +111,7 @@ namespace EuroDiffusion
                     maxY = item.Yh;
                 }
             }
-			this.Cities = new City[maxX + 1, maxY + 1];
+			this.cities = new City[maxX + 1, maxY + 1];
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace EuroDiffusion
 
             foreach (Country item in this.Countries)
             {
-				this.CountrySolution.Add(0);
+				this.countrySolution.Add(0);
             }
 
             while (!done)
@@ -150,7 +150,7 @@ namespace EuroDiffusion
                 days++;
 				this.CheckIsReadyCountries(days);
 
-                if (this.CountrySolution.All(x => x > 0))
+                if (this.countrySolution.All(x => x > 0))
                 {
                     done = true;
                 }
@@ -164,7 +164,7 @@ namespace EuroDiffusion
             List<Solution> solution = new List<Solution>();
             for (int i = 0; i < this.Countries.Count(); i++)
             {
-                solution.Add(new Solution(this.Countries[i].Name, this.CountrySolution[i]));
+                solution.Add(new Solution(this.Countries[i].Name, this.countrySolution[i]));
             }
 
             List<Solution> result = solution.OrderBy(n => n.Days).ToList();
@@ -229,8 +229,8 @@ namespace EuroDiffusion
 
         private bool OnMap(int i, int j)
         {
-            return (i >= 0 && i < this.Cities.GetLength(0)) &&
-                   (j >= 0 && j < this.Cities.GetLength(1));
+            return (i >= 0 && i < this.cities.GetLength(0)) &&
+                   (j >= 0 && j < this.cities.GetLength(1));
         }
 
         private void CheckIsReadyCountries(int day)
@@ -241,7 +241,7 @@ namespace EuroDiffusion
                 {
                     if(this.Countries[i].IsDone())
                     {
-						this.CountrySolution[i] = day;
+						this.countrySolution[i] = day;
                     }
                 }
             }
